@@ -27,10 +27,15 @@ export default {
     }
   },
   created () {
-    const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`
+    const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products`
     this.$http.get(url)
       .then((res) => {
-        this.products = res.data.products
+        if (res.data.success) {
+          this.products = res.data.products
+        }
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 }
